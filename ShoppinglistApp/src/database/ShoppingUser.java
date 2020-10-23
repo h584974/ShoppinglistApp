@@ -15,7 +15,7 @@ public class ShoppingUser {
 	
 	public ShoppingUser(String username, String password) {
 		this.username = username;
-		this.encryptedPassword = PasswordHasher.encryptPassword(password);
+		this.encryptedPassword = BCrypt.hashpw(password, BCrypt.gensalt(12));
 	}
 	
 	public String getUsername() {

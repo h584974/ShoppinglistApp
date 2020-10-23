@@ -33,7 +33,7 @@ public class Login extends HttpServlet {
 		out.println("<p>Username&ensp;&ensp;<input type=\"text\" name=\"brukernavn\"></p>");
 		out.println("<p>Password&ensp;&ensp;<input type=\"password\" name=\"password\"></p>");
 		out.println("<input type=\"submit\" name=\"login\" value=\"Login\">&ensp;&ensp;"
-				+ "<input type=\"submit\" name=\"create\" value=\"Create Account\">");
+				+ "<input type=\"submit\" value=\"Create Account\">");
 		out.println("</fieldset>");
 		out.println("</form>");
 		out.println("</body>");
