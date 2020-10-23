@@ -14,6 +14,7 @@ public class Login extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String message = (String)request.getSession().getAttribute("message");
+		request.getSession().setAttribute("message", null);
 		PrintWriter out = response.getWriter();
 		
 		out.println("<!DOCTYPE html>");
