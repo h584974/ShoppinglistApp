@@ -13,7 +13,7 @@ public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String errorMessage = (String)request.getSession().getAttribute("errorMessage");
+		String message = (String)request.getSession().getAttribute("message");
 		PrintWriter out = response.getWriter();
 		
 		out.println("<!DOCTYPE html>");
@@ -27,8 +27,8 @@ public class Login extends HttpServlet {
 		out.println("<fieldset>");
 		out.println("<legend>Login</legend>");
 		
-		if(errorMessage != null && !errorMessage.isBlank())
-			out.println("<p>" + errorMessage + "</p>");
+		if(message != null && !message.isBlank())
+			out.println("<p>" + message + "</p>");
 		
 		out.println("<p>Username&ensp;&ensp;<input type=\"text\" name=\"brukernavn\"></p>");
 		out.println("<p>Password&ensp;&ensp;<input type=\"password\" name=\"password\"></p>");
