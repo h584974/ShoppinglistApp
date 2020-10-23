@@ -8,6 +8,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import database.BCrypt;
 import database.ShoppingUser;
 import database.UserDAO;
 
@@ -52,7 +54,13 @@ public class LoginPost extends HttpServlet {
 				response.sendRedirect("Login");
 			}
 			else {
-				boolean loginSuccessful = LoginAuthenticator.authenticateLogin(username, password);
+				ShoppingUser user = userDAO.getUser(username);
+				boolean loginSuccessful = false;
+				
+				if(user != null) {
+					loginSuccessful = BCrypt.checkpw(password, user.getEncryptedPassword());
+				}
+				
 				if(loginSuccessful) {
 					Cookie authenticatorCookie = new Cookie("authenticatorCookie",username);
 					authenticatorCookie.setSecure(true);
