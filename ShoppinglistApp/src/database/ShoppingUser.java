@@ -5,13 +5,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(schema = "ShoppinglistApp", name = "ShoppingUser")
+@Table(schema = "shoppinglistapp", name = "shoppinguser")
 public class ShoppingUser {
 	
 	@Id
 	private String username;
 	
 	private String encryptedPassword;
+	
+	public ShoppingUser() {}
 	
 	public ShoppingUser(String username, String password) {
 		this.username = username;

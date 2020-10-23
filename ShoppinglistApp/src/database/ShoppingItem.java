@@ -16,6 +16,8 @@ public class ShoppingItem {
 	@Id @ManyToOne @JoinColumn(name="List_ID")
 	private Shoppinglist shoppinglist;
 	
+	public ShoppingItem() {}
+	
 	public ShoppingItem(String itemName, Shoppinglist shoppinglist) {
 		this.itemName = itemName;
 		this.shoppinglist = shoppinglist;

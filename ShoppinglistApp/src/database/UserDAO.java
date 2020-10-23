@@ -7,16 +7,20 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class UserDAO {
 	
-	@PersistenceContext(name = "ShoppingPU")
+	@PersistenceContext(name = "shoppingPU")
 	private EntityManager em;
 	
 	public ShoppingUser getUser(String username) {
 		return em.find(ShoppingUser.class, username);
 	}
 	
-	public void addUser(ShoppingUser user) {
-		ShoppingUser newUser = em.merge(user);
-		em.persist(newUser);
+	public synchronized void addUser(ShoppingUser user) {
+		em.persist(user);
+	}
+	
+	public synchronized void deleteUser(ShoppingUser user) {
+		ShoppingUser u = em.merge(user);
+		em.remove(u);
 	}
 
 }
