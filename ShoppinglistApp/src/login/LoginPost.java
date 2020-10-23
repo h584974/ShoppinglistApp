@@ -28,10 +28,10 @@ public class LoginPost extends HttpServlet {
 		String password = request.getParameter("password");
 		
 		if(login == null || login.isBlank()) {
-			if(password.length() < 8 || password.length() > 64) {
+			if(password == null || password.length() < 8 || password.length() > 64) {
 				request.getSession().setAttribute("message", "Password must be between 8 and 64 characters long");
 			}
-			else if(username.length() < 3 || username.length() > 20) {
+			else if(username == null || username.length() < 3 || username.length() > 20) {
 				request.getSession().setAttribute("message", "Username must be between 3 and 20 characters long");
 			}
 			else {

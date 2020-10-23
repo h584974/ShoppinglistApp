@@ -30,7 +30,7 @@ public class Login extends HttpServlet {
 		if(message != null && !message.isBlank())
 			out.println("<p>" + message + "</p>");
 		
-		out.println("<p>Username&ensp;&ensp;<input type=\"text\" name=\"brukernavn\"></p>");
+		out.println("<p>Username&ensp;&ensp;<input type=\"text\" name=\"username\"></p>");
 		out.println("<p>Password&ensp;&ensp;<input type=\"password\" name=\"password\"></p>");
 		out.println("<input type=\"submit\" name=\"login\" value=\"Login\">&ensp;&ensp;"
 				+ "<input type=\"submit\" value=\"Create Account\">");
