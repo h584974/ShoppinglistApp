@@ -19,6 +19,7 @@ public class Login extends HttpServlet {
 		out.println("<!DOCTYPE html>");
 		out.println("<html>");
 		out.println("<head>");
+		out.println("<link rel=\"stylesheet\" href=\"CSS/LoginStyle.css\">");
 		out.println("<meta charset=\"UTF-8\">");
 		out.println("<title>Login</title>");
 		out.println("</head>");
@@ -28,7 +29,7 @@ public class Login extends HttpServlet {
 		out.println("<legend>Login</legend>");
 		
 		if(message != null && !message.isBlank())
-			out.println("<p>" + message + "</p>");
+			out.println("<div class=\"message\"><p>" + message + "</p></div>");
 		
 		out.println("<p>Username&ensp;&ensp;<input type=\"text\" name=\"username\"></p>");
 		out.println("<p>Password&ensp;&ensp;<input type=\"password\" name=\"password\"></p>");
