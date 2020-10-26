@@ -25,7 +25,7 @@ public class MainPageGet extends HttpServlet {
 		String username = Arrays.stream(request.getCookies()).filter(c -> c.getName().equalsIgnoreCase("authenticatorCookie")).findAny().get().getValue();
 		List<Shoppinglist> shoppinglists = listDAO.getShoppinglistsForUser(username);
 		request.getSession().setAttribute("shoppinglists", shoppinglists);
-		
+		request.getRequestDispatcher("WEB-INF/MainPage.jsp").forward(request, response);
 	}
 
 }
