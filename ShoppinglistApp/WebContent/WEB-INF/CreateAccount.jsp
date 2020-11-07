@@ -18,18 +18,18 @@
 		<fieldset>
 			<div class="pure-control-group">
 				<label for="username">Username:</label>
-				<input type="text" name="username" value="${username}" placeholder="Username" pattern=".{3,20}" required>
-				<font color="red">${ERROR_INVALID_USERNAME}</font>
+				<input type="text" name="username" value="${username}" placeholder="Username" pattern="^[0-9a-zA-ZæøåÆØÅ |_-]{3,20}$" required>
+				<font color="red">${ERROR_USERNAME}</font>
 			</div>
 			<div class="pure-control-group">
 				<label for="password">Password:</label>
 				<input type="password" name="password" placeholder="Password" pattern=".{8,64}" required>
-				<font color="red">${ERROR_INVALID_PASSWORD}</font>
+				<font color="red">${ERROR_PASSWORD}</font>
 			</div>
 			<div class="pure-control-group">
 				<label for="password">Repeat Password:</label>
 				<input type="password" name="passwordrepeat" placeholder="Repeat Password" pattern=".{8,64}" required>
-				<font color="red">${ERROR_PASSWORDS_DO_NOT_MATCH}</font>
+				<font color="red">${ERROR_PASSWORD_REPEAT}</font>
 			</div>
 			<div class="pure-controls">
 				<input type="submit" value="Create Account" class="pure-button pure-button-primary">

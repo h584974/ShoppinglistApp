@@ -3,6 +3,8 @@ package mainPage;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
+
 import database.Shoppinglist;
 import database.ShoppinglistDAO;
 import database.UserDAO;
@@ -24,7 +26,13 @@ public class MainPage extends HttpServlet {
 	private ShoppinglistDAO listDAO;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String username = Arrays.stream(request.getCookies()).filter(c -> c.getName().equalsIgnoreCase("loggedIn")).findAny().get().getValue();
+		String username = null;
+		
+		try {
+			username = Arrays.stream(request.getCookies()).filter(c -> c.getName().equalsIgnoreCase("loggedIn")).findAny().get().getValue();
+		}
+		catch(NoSuchElementException e) {}
+		
 		if(username == null) {
 			request.setAttribute("errorMessage", ERROR_USERNAME_NOT_FOUND);
 			request.getRequestDispatcher("WEB-INF/Login.jsp").forward(request, response);

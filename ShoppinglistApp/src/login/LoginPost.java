@@ -42,6 +42,7 @@ public class LoginPost extends HttpServlet {
 				request.getSession().invalidate();
 				Cookie loggedIn = new Cookie("loggedIn",username);
 				loggedIn.setMaxAge(600);
+				response.addCookie(loggedIn);
 				response.sendRedirect("MainPage");
 			}
 			else {

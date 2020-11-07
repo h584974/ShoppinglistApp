@@ -22,7 +22,7 @@ public class ShoppinglistDAO {
 	}
 	
 	public List<Shoppinglist> getShoppinglistsForUser(String username) {
-		return em.createQuery("SELECT * FROM Shoppinglist WHERE List_ID IN (SELECT List_ID FROM UserLists WHERE username = '" + username + "')", Shoppinglist.class).getResultList();
+		return em.createQuery("SELECT l FROM Shoppinglist l WHERE l.List_ID IN (SELECT l.List_ID FROM UserLists l WHERE l.username = '" + username + "')", Shoppinglist.class).getResultList();
 	}
 
 }

@@ -2,7 +2,6 @@ package create;
 
 import validation.Validator;
 import java.io.IOException;
-
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +9,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import database.ShoppingUser;
 import database.UserDAO;
 
@@ -20,6 +18,7 @@ public class CreateAccountPost extends HttpServlet {
 	
 	private final Validator validator = new Validator();
 	
+	private final String ERROR_USERNAME_TAKEN = "Username is taken";
 	private final String ERROR_INVALID_USERNAME = "Invalid Username";
 	private final String ERROR_INVALID_PASSWORD = "Invalid Password";
 	private final String ERROR_PASSWORDS_DO_NOT_MATCH = "Passwords do not match";
@@ -40,15 +39,15 @@ public class CreateAccountPost extends HttpServlet {
 		boolean validated = true;
 		
 		if(!validator.validateUsername(username)) {
-			request.getSession().setAttribute("ERROR_INVALID_USERNAME", ERROR_INVALID_USERNAME);
+			request.getSession().setAttribute("ERROR_USERNAME", ERROR_INVALID_USERNAME);
 			validated = false;
 		}
 		if(!validator.validatePassword(password)) {
-			request.getSession().setAttribute("ERROR_INVALID_PASSWORD", ERROR_INVALID_PASSWORD);
+			request.getSession().setAttribute("ERROR_PASSWORD", ERROR_INVALID_PASSWORD);
 			validated = false;
 		}
 		if(!validator.validatePasswordRepeat(passwordRepeat, password)) {
-			request.getSession().setAttribute("ERROR_PASSWORDS_DO_NOT_MATCH", ERROR_PASSWORDS_DO_NOT_MATCH);
+			request.getSession().setAttribute("ERROR_PASSWORD_REPEAT", ERROR_PASSWORDS_DO_NOT_MATCH);
 			validated = false;
 		}
 		
@@ -58,12 +57,19 @@ public class CreateAccountPost extends HttpServlet {
 				userDAO.addUser(newUser);
 			}
 			catch(Throwable e) {
-				response.sendRedirect("CreateAccount");
+				validated = false;
 			}
 			
-			Cookie loggedIn = new Cookie("loggedIn",username);
-			loggedIn.setMaxAge(600);
-			response.sendRedirect("MainPage");
+			if(validated) {
+				Cookie loggedIn = new Cookie("loggedIn",username);
+				loggedIn.setMaxAge(600);
+				response.addCookie(loggedIn);
+				response.sendRedirect("MainPage");
+			}
+			else {
+				request.getSession().setAttribute("ERROR_USERNAME", ERROR_USERNAME_TAKEN);
+				response.sendRedirect("CreateAccount");
+			}
 		}
 		else {
 			response.sendRedirect("CreateAccount");
