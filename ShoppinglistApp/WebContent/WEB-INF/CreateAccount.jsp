@@ -8,15 +8,14 @@
 <link rel="stylesheet"
 	href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
 <link rel="stylesheet"
-	href="CSS/LoginStyle.css">
+	href="CSS/CreateAccountStyle.css">
 <meta charset="UTF-8">
-<title>Login</title>
+<title>CreateAccount</title>
 </head>
 <body>
-	<h1>Login</h1>
-	<form action="LoginPost" method="post" class="pure-form pure-form-aligned">
+	<h1>Create Account</h1>
+	<form action="CreateAccountPost" method="post" class="pure-form pure-form-aligned">
 		<fieldset>
-			<p class="login-error">${errorMessage}</p>
 			<div class="pure-control-group">
 				<label for="username">Username:</label>
 				<input type="text" name="username" value="${username}" placeholder="Username" pattern=".{3,20}" required>
@@ -25,12 +24,16 @@
 				<label for="password">Password:</label>
 				<input type="password" name="password" placeholder="Password" pattern=".{8,64}" required>
 			</div>
+			<div class="pure-control-group">
+				<label for="password">Repeat Password:</label>
+				<input type="password" name="passwordrepeat" placeholder="Repeat Password" pattern=".{8,64}" required>
+			</div>
 			<div class="pure-controls">
-				<input type="submit" name="login" value="Login" class="pure-button pure-button-primary">
-				<input type="submit" form="create" value="Create Account" class="pure-button pure-button-primary">
+				<input type="submit" value="Create Account" class="pure-button pure-button-primary">
+				<input type="submit" form="login" value="Login" class="pure-button pure-button-primary">
 			</div>
 		</fieldset>
 	</form>
-	<form action="CreateAccount" method="get" id="create"></form>
+	<form id="login" action="Login" method="get"></form>
 </body>
 </html>

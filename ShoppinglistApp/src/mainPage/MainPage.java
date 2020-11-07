@@ -18,14 +18,22 @@ import javax.servlet.http.HttpServletResponse;
 public class MainPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
+	private final String ERROR_USERNAME_NOT_FOUND = "Something went went wrong - Oops";
+	
 	@EJB
 	private ShoppinglistDAO listDAO;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String username = Arrays.stream(request.getCookies()).filter(c -> c.getName().equalsIgnoreCase("authenticatorCookie")).findAny().get().getValue();
-		List<Shoppinglist> shoppinglists = listDAO.getShoppinglistsForUser(username);
-		request.getSession().setAttribute("shoppinglists", shoppinglists);
-		request.getRequestDispatcher("WEB-INF/MainPage.jsp").forward(request, response);
+		String username = Arrays.stream(request.getCookies()).filter(c -> c.getName().equalsIgnoreCase("loggedIn")).findAny().get().getValue();
+		if(username == null) {
+			request.setAttribute("errorMessage", ERROR_USERNAME_NOT_FOUND);
+			request.getRequestDispatcher("WEB-INF/Login.jsp").forward(request, response);
+		}
+		else {
+			List<Shoppinglist> shoppinglists = listDAO.getShoppinglistsForUser(username);
+			request.setAttribute("shoppinglists", shoppinglists);
+			request.getRequestDispatcher("WEB-INF/MainPage.jsp").forward(request, response);
+		}
 	}
 
 }

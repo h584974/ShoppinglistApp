@@ -12,7 +12,7 @@
 	<c:forEach items="${shoppinglists}" var="sl">
 		<form action="ShoppinglistPost" method="post">
 				<p>${sl.title}</p>
-				<input type="hidden" name="slTitle" value="${sl.title}">
+				<input type="hidden" name="list_id" value="${sl.List_ID">
 				<input type="submit" value="View">
 		</form>
 		<br>
