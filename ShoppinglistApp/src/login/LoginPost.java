@@ -44,7 +44,7 @@ public class LoginPost extends HttpServlet {
 				response.sendRedirect("Login");
 			}
 			else {
-				if(database.BCrypt.checkpw(password, user.getEncryptedPassword())) {
+				if(BCrypt.checkpw(password, user.getEncryptedPassword())) {
 					request.getSession().invalidate();
 					Cookie loggedIn = new Cookie("loggedIn",username);
 					loggedIn.setMaxAge(600);
