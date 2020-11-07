@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/MainPageGet")
-public class MainPageGet extends HttpServlet {
+@WebServlet("/MainPage")
+public class MainPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB

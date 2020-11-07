@@ -1,5 +1,21 @@
 @charset "UTF-8";
 
-div.message {
-	color: rgb(255,0,0);
+input[type=password]:invalid {
+	border: solid red;
+}
+
+input[type=text]:invalid {
+	border: solid red;
+}
+
+input[type=password]:valid {
+	border: solid green;
+}
+
+input[type=text]:valid {
+	border: solid green;
+}
+
+p.login-error {
+	color: red;
 }

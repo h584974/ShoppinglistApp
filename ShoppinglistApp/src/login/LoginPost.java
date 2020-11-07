@@ -14,7 +14,11 @@ import database.UserDAO;
 
 @WebServlet("/LoginPost")
 public class LoginPost extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
+	
+	private final String ERROR_WRONG_USERNAME = "Wrong username";
+	private final String ERROR_WRONG_PASSWORD = "Wrong password";
 	
 	@EJB
 	private UserDAO userDAO;
@@ -24,52 +28,30 @@ public class LoginPost extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		String login = request.getParameter("login");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+		request.getSession().setAttribute("username", username);
 		
-		if(login == null || login.isBlank()) {
-			if(password == null || password.length() < 8 || password.length() > 64) {
-				request.getSession().setAttribute("message", "Password must be between 8 and 64 characters long");
-			}
-			else if(username == null || username.length() < 3 || username.length() > 20) {
-				request.getSession().setAttribute("message", "Username must be between 3 and 20 characters long");
-			}
-			else {
-				ShoppingUser user = new ShoppingUser(username,password);
-				userDAO.addUser(user);
-				if(userDAO.getUser(username) == null) {
-					request.getSession().setAttribute("message", "Failed to create account");
-				}
-				else {
-					request.getSession().setAttribute("message", "Account has been created");
-				}
-			}
-			response.sendRedirect("Login");
+		if(login == null) {
+			response.sendRedirect("CreateAccount");
 		}
 		else {
-			if(username == null || username.isBlank() || password == null || password.isBlank()) {
-				request.getSession().setAttribute("message", "Username and Password must be submitted");
+			ShoppingUser user = userDAO.getUser(username);
+			if(user == null) {
+				request.getSession().setAttribute("errorMessage", ERROR_WRONG_USERNAME);
 				response.sendRedirect("Login");
 			}
 			else {
-				ShoppingUser user = userDAO.getUser(username);
-				boolean loginSuccessful = false;
-				
-				if(user != null) {
-					loginSuccessful = BCrypt.checkpw(password, user.getEncryptedPassword());
-				}
-				
-				if(loginSuccessful) {
-					Cookie authenticatorCookie = new Cookie("authenticatorCookie",username);
-					authenticatorCookie.setSecure(true);
-					authenticatorCookie.setMaxAge(600);
-					request.getSession().setMaxInactiveInterval(600);
-					response.addCookie(authenticatorCookie);
-					response.sendRedirect("MainPageGet");
+				if(database.BCrypt.checkpw(password, user.getEncryptedPassword())) {
+					request.getSession().invalidate();
+					Cookie loggedIn = new Cookie("loggedIn",username);
+					loggedIn.setMaxAge(600);
+					response.sendRedirect("MainPage");
 				}
 				else {
-					request.getSession().setAttribute("message", "Username or Password were not correct, please try again");
+					request.getSession().setAttribute("errorMessage", ERROR_WRONG_PASSWORD);
 					response.sendRedirect("Login");
 				}
 			}
