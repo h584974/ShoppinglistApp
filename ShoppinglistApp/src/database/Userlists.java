@@ -12,16 +12,21 @@ import javax.persistence.Table;
 public class Userlists {
 	
 	@Id
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "username")
     private ShoppingUser user;
 	
 	@Id
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "list_id")
     private Shoppinglist shoppinglist;
 	
 	public Userlists() {}
+	
+	public Userlists(ShoppingUser user, Shoppinglist shoppinglist) {
+		this.user = user;
+		this.shoppinglist = shoppinglist;
+	}
 	
 	public Shoppinglist getShoppinglist() {
 		return this.shoppinglist;

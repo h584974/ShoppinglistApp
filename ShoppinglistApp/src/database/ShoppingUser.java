@@ -1,5 +1,6 @@
 package database;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -17,7 +18,7 @@ public class ShoppingUser {
 	private String username;
 	
 	@OneToMany(mappedBy = "username")
-	private List<Userlists> userlists;
+	private List<Userlists> userlists = new ArrayList<>();
 	
 	private String encryptedPassword;
 	

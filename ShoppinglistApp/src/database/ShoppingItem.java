@@ -1,6 +1,7 @@
 package database;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -11,15 +12,17 @@ import javax.persistence.Table;
 public class ShoppingItem {
 	
 	@Id
-	private String itemName;
+	private String item_name;
 	
-	@Id @ManyToOne @JoinColumn(name="List_ID")
+	@Id 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="List_ID")
 	private Shoppinglist shoppinglist;
 	
 	public ShoppingItem() {}
 	
 	public ShoppingItem(String itemName, Shoppinglist shoppinglist) {
-		this.itemName = itemName;
+		this.item_name = itemName;
 		this.shoppinglist = shoppinglist;
 	}
 
