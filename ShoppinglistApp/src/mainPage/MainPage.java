@@ -38,7 +38,7 @@ public class MainPage extends HttpServlet {
 			request.getRequestDispatcher("WEB-INF/Login.jsp").forward(request, response);
 		}
 		else {
-			List<Shoppinglist> shoppinglists = listDAO.getShoppinglistsForUser(username);
+			List<Shoppinglist> shoppinglists = listDAO.getAllUserShoppinglists(username);
 			request.setAttribute("shoppinglists", shoppinglists);
 			request.getRequestDispatcher("WEB-INF/MainPage.jsp").forward(request, response);
 		}

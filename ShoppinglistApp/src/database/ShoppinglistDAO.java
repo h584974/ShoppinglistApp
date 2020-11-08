@@ -1,13 +1,17 @@
 package database;
 
+import java.util.Arrays;
 import java.util.List;
-
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Stateless
 public class ShoppinglistDAO {
+	
+	@EJB
+	private UserDAO userDAO;
 	
 	@PersistenceContext(name = "shoppingPU")
 	private EntityManager em;
@@ -21,8 +25,23 @@ public class ShoppinglistDAO {
 		em.remove(list);
 	}
 	
-	public List<Shoppinglist> getShoppinglistsForUser(String username) {
-		return em.createQuery("SELECT * FROM Shoppinglist l WHERE l.List_ID IN (SELECT u.List_ID FROM UserLists u WHERE u.username = '" + username + "')", Shoppinglist.class).getResultList();
+	public List<Shoppinglist> getAllUserShoppinglists(String username) {
+		List<Userlists> userlists = null;
+		
+		try {
+			userlists = userDAO.getUser(username).getUserlists();
+		}
+		catch(Throwable e) {}
+		
+		if(userlists == null || userlists.isEmpty()) {
+			return null;
+		}
+		else {
+			List<Shoppinglist> shoppinglists = Arrays.asList(userlists.get(0).getShoppinglist());
+			userlists.remove(0);
+			userlists.forEach(u -> shoppinglists.add(u.getShoppinglist()));
+			return shoppinglists;
+		}
 	}
 
 }

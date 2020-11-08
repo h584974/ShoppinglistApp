@@ -1,7 +1,10 @@
 package database;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -10,6 +13,9 @@ public class ShoppingUser {
 	
 	@Id
 	private String username;
+	
+	@OneToMany(mappedBy = "username")
+	private List<Userlists> userlists;
 	
 	private String encryptedPassword;
 	
@@ -25,7 +31,11 @@ public class ShoppingUser {
 	}
 	
 	public String getEncryptedPassword() {
-		return encryptedPassword;
+		return this.encryptedPassword;
+	}
+	
+	public List<Userlists> getUserlists() {
+		return this.userlists;
 	}
 	
 	@Override

@@ -10,6 +10,7 @@
 		<class>database.ShoppingUser</class>
 		<class>database.Shoppinglist</class>
 		<class>database.ShoppingItem</class>
+		<class>database.Userlists</class>
 		<properties>
 			<property name="eclipselink.weaving" value="false" />
 		</properties>
