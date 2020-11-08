@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import security.BCrypt;
+
 @Entity
 @Table(schema = "shoppinglistapp", name = "shoppinguser")
 public class ShoppingUser {

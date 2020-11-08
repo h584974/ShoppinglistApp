@@ -1,6 +1,5 @@
 package create;
 
-import validation.Validator;
 import java.io.IOException;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -11,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import database.ShoppingUser;
 import database.UserDAO;
+import security.Validator;
 
 @WebServlet("/CreateAccountPost")
 public class CreateAccountPost extends HttpServlet {
