@@ -1,6 +1,5 @@
 package database;
 
-import java.util.Arrays;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -26,21 +25,13 @@ public class ShoppinglistDAO {
 	}
 	
 	public List<Shoppinglist> getAllUserShoppinglists(String username) {
-		List<Userlists> userlists = null;
+		ShoppingUser user = userDAO.getUser(username);
 		
-		try {
-			userlists = userDAO.getUser(username).getUserlists();
-		}
-		catch(Throwable e) {}
-		
-		if(userlists == null || userlists.isEmpty()) {
+		if(user == null) {
 			return null;
 		}
 		else {
-			List<Shoppinglist> shoppinglists = Arrays.asList(userlists.get(0).getShoppinglist());
-			userlists.remove(0);
-			userlists.forEach(u -> shoppinglists.add(u.getShoppinglist()));
-			return shoppinglists;
+			return user.getShoppinglists();
 		}
 	}
 

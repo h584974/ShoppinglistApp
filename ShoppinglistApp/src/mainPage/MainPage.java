@@ -4,11 +4,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
-
 import database.Shoppinglist;
 import database.ShoppinglistDAO;
-import database.UserDAO;
-
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

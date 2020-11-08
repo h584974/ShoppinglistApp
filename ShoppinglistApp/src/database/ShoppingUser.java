@@ -1,13 +1,12 @@
 package database;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
-
 import security.BCrypt;
 
 @Entity
@@ -17,8 +16,13 @@ public class ShoppingUser {
 	@Id
 	private String username;
 	
-	@OneToMany(mappedBy = "username")
-	private List<Userlists> userlists = new ArrayList<>();
+	@ManyToMany
+	@JoinTable(
+			name = "shoppinguser_shoppinglist",
+			joinColumns = @JoinColumn(name = "username"), 
+			inverseJoinColumns = @JoinColumn(name = "list_id")
+	)
+	List<Shoppinglist> shoppinglists;
 	
 	private String encryptedPassword;
 	
@@ -37,8 +41,8 @@ public class ShoppingUser {
 		return this.encryptedPassword;
 	}
 	
-	public List<Userlists> getUserlists() {
-		return this.userlists;
+	public List<Shoppinglist> getShoppinglists() {
+		return this.shoppinglists;
 	}
 	
 	@Override
