@@ -1,16 +1,12 @@
 package database;
 
 import java.util.List;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Stateless
 public class ShoppinglistDAO {
-	
-	@EJB
-	private UserDAO userDAO;
 	
 	@PersistenceContext(name = "shoppingPU")
 	private EntityManager em;
@@ -25,14 +21,7 @@ public class ShoppinglistDAO {
 	}
 	
 	public List<Shoppinglist> getAllUserShoppinglists(String username) {
-		ShoppingUser user = userDAO.getUser(username);
-		
-		if(user == null) {
-			return null;
-		}
-		else {
-			return user.getShoppinglists();
-		}
+		return em.createQuery("SELECT s FROM Shoppinglist s,shoppinguser_shoppinglist f WHERE s.list_id = f.list_id AND f.username = '" + username + "'",Shoppinglist.class).getResultList();
 	}
 
 }

@@ -12,7 +12,7 @@ public class Shoppinglist {
 	
 	@Id 
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer List_ID;
+	private Integer list_id;
 	
 	private String title;
 	
@@ -23,7 +23,7 @@ public class Shoppinglist {
 	}
 	
 	public Integer getList_ID() {
-		return List_ID;
+		return list_id;
 	}
 	
 	public String getTitle() {
