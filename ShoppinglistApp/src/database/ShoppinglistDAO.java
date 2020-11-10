@@ -21,7 +21,7 @@ public class ShoppinglistDAO {
 	}
 	
 	public List<Shoppinglist> getAllUserShoppinglists(String username) {
-		return em.createQuery("SELECT s FROM Shoppinglist s,shoppinguser_shoppinglist f WHERE s.list_id = f.list_id AND f.username = '" + username + "'",Shoppinglist.class).getResultList();
+		return em.createQuery("SELECT s FROM Shoppinglist s",Shoppinglist.class).getResultList();
 	}
 
 }

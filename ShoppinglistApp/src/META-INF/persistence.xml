@@ -11,6 +11,7 @@
 		<class>database.Shoppinglist</class>
 		<class>database.ShoppingItem</class>
 		<class>database.Shoppinguser_Shoppinglist</class>
+		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 			<property name="eclipselink.weaving" value="false" />
 		</properties>
