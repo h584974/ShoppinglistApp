@@ -21,7 +21,8 @@ public class ShoppinglistDAO {
 	}
 	
 	public List<Shoppinglist> getAllUserShoppinglists(String username) {
-		return em.createQuery("SELECT s FROM Shoppinglist s",Shoppinglist.class).getResultList();
+		List<Shoppinguser_Shoppinglist> ul = em.createQuery("SELECT u FROM Shoppinguser_Shoppinglist u",Shoppinguser_Shoppinglist.class).getResultList();
+		return null;
 	}
 
 }

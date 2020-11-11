@@ -22,7 +22,7 @@ public class Shoppinglist {
 		this.title = title;
 	}
 	
-	public Integer getList_ID() {
+	public Integer getList_id() {
 		return list_id;
 	}
 	
