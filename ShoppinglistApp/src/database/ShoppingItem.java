@@ -16,7 +16,7 @@ public class ShoppingItem {
 	
 	@Id 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="List_ID")
+	@JoinColumn(name="list_id")
 	private Shoppinglist shoppinglist;
 	
 	public ShoppingItem() {}
@@ -24,6 +24,14 @@ public class ShoppingItem {
 	public ShoppingItem(String itemName, Shoppinglist shoppinglist) {
 		this.item_name = itemName;
 		this.shoppinglist = shoppinglist;
+	}
+	
+	public String getItem_Name() {
+		return this.item_name;
+	}
+	
+	public Shoppinglist getShoppinglist() {
+		return this.shoppinglist;
 	}
 
 }

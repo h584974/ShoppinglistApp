@@ -9,13 +9,13 @@
 <title>MainPage</title>
 </head>
 <body>
-	<c:forEach items="${shoppinglists}" var="sl">
-		<form action="ShoppinglistPost" method="post">
+	<form action="ShoppinglistPost" method="post">
+		<c:forEach items="${shoppinglists}" var="sl">
 				<p>${sl.title}</p>
 				<input type="hidden" name="list_id" value="${sl.list_id}">
 				<input type="submit" value="View">
-		</form>
-		<br>
-	</c:forEach>
+				<br>
+		</c:forEach>
+	</form>
 </body>
 </html>
