@@ -19,6 +19,8 @@ public class Shoppinglist extends HttpServlet {
 		}
 		catch(Throwable e) {}
 		
+		request.getSession().invalidate();
+		
 		if(shoppinglist == null) {
 			request.getRequestDispatcher("WEB-INF/MainPage.jsp").forward(request, response);
 		}
