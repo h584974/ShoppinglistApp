@@ -10,7 +10,7 @@
 <link rel="stylesheet"
 	href="CSS/CreateAccountStyle.css">
 <meta charset="UTF-8">
-<title>CreateAccount</title>
+<title>Create Account</title>
 </head>
 <body>
 	<h1>Create Account</h1>

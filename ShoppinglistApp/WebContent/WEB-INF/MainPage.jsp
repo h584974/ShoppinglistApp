@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MainPage</title>
+<title>Main Page</title>
 </head>
 <body>
 	<form action="ShoppinglistPost" method="post">
