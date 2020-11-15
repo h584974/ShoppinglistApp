@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Shoppinglist</title>
+<title>${shoppinglist.title == null ? "Unknown Shoppinglist" : shoppinglist.title}</title>
 </head>
 <body>
 
