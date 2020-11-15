@@ -9,7 +9,7 @@
 <title>Main Page</title>
 </head>
 <body>
-	<form action="ShoppinglistPost" method="post">
+	<form action="Shoppinglist" method="post">
 		<c:forEach items="${shoppinglists}" var="sl">
 				<p>${sl.title}</p>
 				<input type="hidden" name="list_id" value="${sl.list_id}">

@@ -14,7 +14,7 @@
 </head>
 <body>
 	<h1>Login</h1>
-	<form action="LoginPost" method="post" class="pure-form pure-form-aligned">
+	<form action="Login" method="post" class="pure-form pure-form-aligned">
 		<fieldset>
 			<p class="login-error">${errorMessage}</p>
 			<div class="pure-control-group">

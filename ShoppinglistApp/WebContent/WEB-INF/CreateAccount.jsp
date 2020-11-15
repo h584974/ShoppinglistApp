@@ -14,7 +14,7 @@
 </head>
 <body>
 	<h1>Create Account</h1>
-	<form action="CreateAccountPost" method="post" class="pure-form pure-form-aligned">
+	<form action="CreateAccount" method="post" class="pure-form pure-form-aligned">
 		<fieldset>
 			<div class="pure-control-group">
 				<label for="username">Username:</label>
