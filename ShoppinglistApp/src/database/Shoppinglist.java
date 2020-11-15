@@ -29,5 +29,9 @@ public class Shoppinglist {
 	public String getTitle() {
 		return this.title;
 	}
+	
+	public boolean equals(Shoppinglist s2) {
+		return this.list_id == s2.list_id;
+	}
 
 }

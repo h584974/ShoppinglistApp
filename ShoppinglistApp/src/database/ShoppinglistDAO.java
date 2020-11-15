@@ -2,6 +2,8 @@ package database;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -42,7 +44,7 @@ public class ShoppinglistDAO {
 	public List<Shoppinglist> getAllUserShoppinglists(String username) {
 		List<Shoppinglist> shoppinglists = getAllShoppinglists();
 		List<Shoppinguser_Shoppinglist> relationList = user_listDAO.getAllUserListRelations();
-		shoppinglists = shoppinglists.stream().filter(s -> relationList.stream().anyMatch(r -> r.getShoppinglist().getList_id() == s.getList_id())).collect(Collectors.toList());
+		shoppinglists = shoppinglists.stream().filter(s -> relationList.stream().filter(r -> r.getUser().getUsername().equals(username)).anyMatch(r -> r.getShoppinglist().equals(s))).collect(Collectors.toList());
 		return shoppinglists;
 	}
 
