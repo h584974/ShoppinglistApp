@@ -5,7 +5,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="JS/CreateAccountController" defer></script>
 <link rel="stylesheet"
 	href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
 <link rel="stylesheet"
