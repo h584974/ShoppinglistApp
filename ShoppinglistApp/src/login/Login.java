@@ -24,10 +24,11 @@ public class Login extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String error = (String)request.getSession().getAttribute("errorMessage");
-		String username = (String)request.getSession().getAttribute("username");
-		request.getSession().invalidate();
-		request.setAttribute("errorMessage", error);
+		String errorUsername = request.getParameter("errorUsername");
+		String errorPassword = request.getParameter("errorPassword");
+		String username = request.getParameter("username");
+		request.setAttribute("errorUsername", errorUsername);
+		request.setAttribute("errorPassword", errorPassword);
 		request.setAttribute("username", username);
 		request.getRequestDispatcher("WEB-INF/Login.jsp").forward(request, response);
 	}
@@ -39,8 +40,7 @@ public class Login extends HttpServlet {
 		ShoppingUser user = userDAO.getUser(username);
 		
 		if(user == null) {
-			request.getSession().setAttribute("errorMessage", ERROR_WRONG_USERNAME);
-			response.sendRedirect("Login");
+			response.sendRedirect("Login?errorUsername=" + ERROR_WRONG_USERNAME);
 		}
 		else {
 			if(BCrypt.checkpw(password, user.getEncryptedPassword())) {
@@ -51,9 +51,7 @@ public class Login extends HttpServlet {
 				response.sendRedirect("MainPage");
 			}
 			else {
-				request.getSession().setAttribute("username", username);
-				request.getSession().setAttribute("errorMessage", ERROR_WRONG_PASSWORD);
-				response.sendRedirect("Login");
+				response.sendRedirect("Login?username=" + username + "&errorPassword=" + ERROR_WRONG_PASSWORD);
 			}
 		}
 	}

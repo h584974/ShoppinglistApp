@@ -19,17 +19,17 @@
 			<div class="pure-control-group" id="userroot">
 				<label for="username">Username:</label>
 				<input id="username" type="text" name="username" value="${username}" placeholder="Username" pattern="^[0-9a-zA-ZæøåÆØÅ |_-]{3,20}$" required>
-				<font color="red">${ERROR_USERNAME}</font>
+				<font color="red">${errorUsername}</font>
 			</div>
 			<div class="pure-control-group" id="passroot">
 				<label for="password">Password:</label>
 				<input id="password" type="password" name="password" placeholder="Password" pattern=".{8,64}" required>
-				<font color="red">${ERROR_PASSWORD}</font>
+				<font color="red">${errorPassword}</font>
 			</div>
 			<div class="pure-control-group" id="repeatpassroot">
 				<label for="password">Repeat Password:</label>
 				<input id="repeatpassword" type="password" name="passwordrepeat" placeholder="Repeat Password" pattern=".{8,64}" required>
-				<font color="red">${ERROR_PASSWORD_REPEAT}</font>
+				<font color="red">${errorPasswordRepeat}</font>
 			</div>
 			<div class="pure-controls">
 				<input type="submit" value="Create Account" class="pure-button pure-button-primary">

@@ -27,6 +27,15 @@ public class CreateAccount extends HttpServlet {
 	private UserDAO userDAO;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		String errorUsername = request.getParameter("errorUsername");
+		String errorPassword = request.getParameter("errorPassword");
+		String errorPasswordRepeat = request.getParameter("errorPasswordRepeat");
+		String username = request.getParameter("username");
+		request.setAttribute("username", username);
+		request.setAttribute("errorUsername", errorUsername);
+		request.setAttribute("errorPassword", errorPassword);
+		request.setAttribute("errorPasswordRepeat", errorPasswordRepeat);
 		request.getRequestDispatcher("WEB-INF/CreateAccount.jsp").forward(request, response);
 	}
 	
@@ -35,44 +44,50 @@ public class CreateAccount extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String passwordRepeat = request.getParameter("passwordrepeat");
-		request.getSession().invalidate();
-		boolean validated = true;
+		String errors = null;
 		
 		if(!validator.validateUsername(username)) {
-			request.getSession().setAttribute("ERROR_USERNAME", ERROR_INVALID_USERNAME);
-			validated = false;
+			errors = "?errorUsername=" + ERROR_INVALID_USERNAME;
 		}
 		if(!validator.validatePassword(password)) {
-			request.getSession().setAttribute("ERROR_PASSWORD", ERROR_INVALID_PASSWORD);
-			validated = false;
+			if(errors == null) {
+				errors = "?errorPassword=" + ERROR_INVALID_PASSWORD;
+			}
+			else {
+				errors += "&errorPassword=" + ERROR_INVALID_PASSWORD;
+			}
 		}
 		if(!validator.validatePasswordRepeat(passwordRepeat, password)) {
-			request.getSession().setAttribute("ERROR_PASSWORD_REPEAT", ERROR_PASSWORDS_DO_NOT_MATCH);
-			validated = false;
+			if(errors == null) {
+				errors = "?errorPasswordRepeat=" + ERROR_PASSWORDS_DO_NOT_MATCH;
+			}
+			else {
+				errors += "&errorPasswordRepeat=" + ERROR_PASSWORDS_DO_NOT_MATCH;
+			}
 		}
 		
-		if(validated) {	
+		if(errors == null) {	
 			try {
 				ShoppingUser newUser = new ShoppingUser(username,password);
 				userDAO.addUser(newUser);
 			}
 			catch(Throwable e) {
-				validated = false;
+				errors = "";
 			}
 			
-			if(validated) {
+			if(errors == null) {
 				Cookie loggedIn = new Cookie("loggedIn",username);
 				loggedIn.setMaxAge(600);
 				response.addCookie(loggedIn);
 				response.sendRedirect("MainPage");
 			}
 			else {
-				request.getSession().setAttribute("ERROR_USERNAME", ERROR_USERNAME_TAKEN);
-				response.sendRedirect("CreateAccount");
+				errors = "?errorUsername=" + ERROR_USERNAME_TAKEN;
+				response.sendRedirect("CreateAccount" + errors + "&username=" + username);
 			}
 		}
 		else {
-			response.sendRedirect("CreateAccount");
+			response.sendRedirect("CreateAccount" + errors + "&username=" + username);
 		}
 	}
 
