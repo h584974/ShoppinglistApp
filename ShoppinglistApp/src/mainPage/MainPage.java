@@ -23,6 +23,7 @@ public class MainPage extends HttpServlet {
 	private ShoppinglistDAO listDAO;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		String username = null;
 		
 		try {
@@ -31,7 +32,6 @@ public class MainPage extends HttpServlet {
 		catch(NoSuchElementException e) {}
 		
 		if(username == null) {
-			request.setAttribute("errorMessage", ERROR_USERNAME_NOT_FOUND);
 			request.getRequestDispatcher("WEB-INF/Login.jsp").forward(request, response);
 		}
 		else {

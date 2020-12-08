@@ -18,17 +18,12 @@ public class Shoppinglist extends HttpServlet {
 	private ShoppinglistDAO listDAO;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		database.Shoppinglist shoppinglist = null;
-		
-		try {
-			shoppinglist = (database.Shoppinglist)request.getSession().getAttribute("shoppinglist");
-		}
-		catch(Throwable e) {}
-		
-		request.getSession().invalidate();
+		request.setCharacterEncoding("UTF-8");
+		int list_id = Integer.parseInt(request.getParameter("list_id"));
+		database.Shoppinglist shoppinglist = listDAO.getShoppinglist(list_id);
 		
 		if(shoppinglist == null) {
-			request.getRequestDispatcher("WEB-INF/MainPage.jsp").forward(request, response);
+			response.sendRedirect("MainPage");
 		}
 		else {
 			request.setAttribute("shoppinglist", shoppinglist);
@@ -37,6 +32,7 @@ public class Shoppinglist extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		int list_id = -1;
 		
 		try {
@@ -46,13 +42,11 @@ public class Shoppinglist extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		database.Shoppinglist shoppinglist = listDAO.getShoppinglist(list_id);
-		if(shoppinglist == null) {
+		if(list_id < 0) {
 			response.sendRedirect("MainPage");
 		}
 		else {
-			request.getSession().setAttribute("shoppinglist", shoppinglist);
-			response.sendRedirect("Shoppinglist");
+			response.sendRedirect("Shoppinglist?list_id=" + list_id);
 		}
 	}
 
