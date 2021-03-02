@@ -7,7 +7,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
-import security.BCrypt;
+
+import utils.BCrypt;
 
 @Entity
 @Table(schema = "shoppinglistapp", name = "shoppinguser")

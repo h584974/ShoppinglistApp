@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import database.ShoppingUser;
 import database.UserDAO;
-import security.Validator;
+import utils.Validator;
 
 @WebServlet("/CreateAccount")
 public class CreateAccount extends HttpServlet {

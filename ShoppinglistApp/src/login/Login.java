@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import database.ShoppingUser;
 import database.UserDAO;
-import security.BCrypt;
+import utils.BCrypt;
 
 @WebServlet("/Login")
 public class Login extends HttpServlet {
