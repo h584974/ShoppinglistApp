@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import database.ShoppingUser;
 import database.UserDAO;
 import utils.BCrypt;
+import utils.Constants;
+import utils.LoginUtils;
 
 @WebServlet("/Login")
 public class Login extends HttpServlet {
@@ -23,14 +25,22 @@ public class Login extends HttpServlet {
 	private UserDAO userDAO;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		String errorUsername = request.getParameter("errorUsername");
-		String errorPassword = request.getParameter("errorPassword");
-		String username = request.getParameter("username");
-		request.setAttribute("errorUsername", errorUsername);
-		request.setAttribute("errorPassword", errorPassword);
-		request.setAttribute("username", username);
-		request.getRequestDispatcher("WEB-INF/Login.jsp").forward(request, response);
+		
+		LoginUtils.logoutUser(request, response); // temporary
+		
+		if(LoginUtils.userIsLoggedIn(request)) {
+			response.sendRedirect("MainPage");
+		}
+		else {
+			String errorUsername = request.getParameter("errorUsername");
+			String errorPassword = request.getParameter("errorPassword");
+			String username = request.getParameter("username");
+			request.setAttribute("errorUsername", errorUsername);
+			request.setAttribute("errorPassword", errorPassword);
+			request.setAttribute("username", username);
+			request.getRequestDispatcher("WEB-INF/Login.jsp").forward(request, response);
+		}
+		
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -45,8 +55,8 @@ public class Login extends HttpServlet {
 		else {
 			if(BCrypt.checkpw(password, user.getEncryptedPassword())) {
 				request.getSession().invalidate();
-				Cookie loggedIn = new Cookie("loggedIn",username);
-				loggedIn.setMaxAge(600);
+				Cookie loggedIn = new Cookie("loginCookie",username);
+				loggedIn.setMaxAge(Constants.MAX_LOGIN_TIME_USER);
 				response.addCookie(loggedIn);
 				response.sendRedirect("MainPage");
 			}
