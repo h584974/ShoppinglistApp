@@ -18,13 +18,13 @@
 		<fieldset>
 			<div class="pure-control-group">
 				<label for="username">Username:</label>
-				<input type="text" name="username" value="${username}" placeholder="Username" pattern=".{3,20}" required>
-				<font style="color: red">${errorUsername}</font>
+				<input type="text" name="username" value="${param.username}" placeholder="Username" pattern=".{3,20}" required>
+				<font style="color: red">${param.errorUsername}</font>
 			</div>
 			<div class="pure-control-group">
 				<label for="password">Password:</label>
 				<input type="password" name="password" placeholder="Password" pattern=".{8,64}" required>
-				<font color="red">${errorPassword}</font>
+				<font color="red">${param.errorPassword}</font>
 			</div>
 			<div class="pure-controls">
 				<input type="submit" name="login" value="Login" class="pure-button pure-button-primary">

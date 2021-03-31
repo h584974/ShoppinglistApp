@@ -32,12 +32,6 @@ public class Login extends HttpServlet {
 			response.sendRedirect("MainPage");
 		}
 		else {
-			String errorUsername = request.getParameter("errorUsername");
-			String errorPassword = request.getParameter("errorPassword");
-			String username = request.getParameter("username");
-			request.setAttribute("errorUsername", errorUsername);
-			request.setAttribute("errorPassword", errorPassword);
-			request.setAttribute("username", username);
 			request.getRequestDispatcher("WEB-INF/Login.jsp").forward(request, response);
 		}
 		
